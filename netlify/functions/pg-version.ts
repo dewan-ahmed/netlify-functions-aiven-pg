@@ -1,6 +1,8 @@
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { Client } from "pg";
 
+var errorMessage = "";
+
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
     const config = {
         connectionString: process.env.POSTGRES_URI,
@@ -24,7 +26,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: `Error connecting to PostgreSQL because THIS IS WRONG --> ${process.env.POSTGRES_URI}` }),
+      body: JSON.stringify({ message: error.message }),
     };
   } finally {
     await client.end();
