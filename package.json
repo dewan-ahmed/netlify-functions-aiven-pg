@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@netlify/functions": "^1.6.0"
+    "@netlify/functions": "^1.6.0",
+    "pg": "^8.11.1"
   }
 }
