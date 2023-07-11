@@ -19,7 +19,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: "Error connecting to PostgreSQL" }),
+      body: JSON.stringify({ message: `Error connecting to PostgreSQL because THIS IS WRONG --> ${process.env.POSTGRES_URI}` }),
     };
   } finally {
     await client.end();
