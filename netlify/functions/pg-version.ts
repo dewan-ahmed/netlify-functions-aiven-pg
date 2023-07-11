@@ -2,10 +2,15 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { Client } from "pg";
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  const client = new Client({
-    connectionString: process.env.POSTGRES_URI,
-    ssl: true, // Enable SSL if required by your PostgreSQL instance
-  });
+    const config = {
+        connectionString: process.env.POSTGRES_URI,
+        ssl: {
+            rejectUnauthorized: true,
+            ca: process.env.CA,
+        },
+    };
+    
+    const client = new Client(config);
 
   try {
     await client.connect();
