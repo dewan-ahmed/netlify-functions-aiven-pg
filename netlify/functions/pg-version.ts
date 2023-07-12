@@ -24,7 +24,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: error.message + "\n" + process.env.CA_CONTENTS   }),
+      body: JSON.stringify({ message: error.message + "/n" + process.env.CA_CONTENTS   }),
     };
   } finally {
     await client.end();
