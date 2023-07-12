@@ -1,12 +1,13 @@
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { Client } from "pg";
+import fs from "fs";
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
     const config = {
         connectionString: process.env.POSTGRES_URI,
         ssl: {
             rejectUnauthorized: true,
-            ca: process.env.CA_CONTENTS,
+            ca: fs.readFileSync("ca.pem").toString(),
         },
     };
     
@@ -24,7 +25,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: error.message + " " + process.env.CA_CONTENTS + " " + process.version   }),
+      body: JSON.stringify({ message: error.message + " " + fs.readFileSync("ca.pem").toString() + " " + process.version   }),
     };
   } finally {
     await client.end();
