@@ -1,0 +1,4 @@
+[functions]
+
+  # Includes the CA certificate in the function bundle
+  included_files = ["netlify/functions/ca.pem"]
